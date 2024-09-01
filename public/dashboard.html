@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Expense Tracker</title>
+    <link rel="stylesheet" href="main.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Expense Tracker Dashboard</h1>
+        
+        <div class="main-content">
+            <!-- Information Section -->
+            <div class="section info-section">
+                <h2>Data Entry</h2>
+                <form id="dataForm">
+                    <label for="type">Type:</label>
+                    <select id="type" name="type">
+                        <option value="Expense">Expense</option>
+                        <option value="Income">Income</option>
+                    </select><br/>
+
+                    <label for="amount">Amount:</label>
+                    <input type="number" id="amount" name="amount" required /><br/>
+
+                    <label for="date">Date:</label>
+                    <input type="date" id="date" name="date" required /><br/>
+
+                    <button type="submit">Add Entry</button>
+                </form>
+
+                <h2>Data Table</h2>
+                <table id="dataTable">
+                    <thead>
+                        <tr>
+                            <th>Type</th>
+                            <th>Amount</th>
+                            <th>Date</th>
+                            <th>Actions</th> <!-- Added Actions column -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Data rows will be inserted here -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Chart Section -->
+            <div class="section chart-section">
+                <h2>Expense Chart</h2>
+                <canvas id="expenseChart" width="300" height="200"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        const form = document.getElementById('dataForm');
+        const dataTable = document.getElementById('dataTable').getElementsByTagName('tbody')[0];
+        const ctx = document.getElementById('expenseChart').getContext('2d');
+
+        let data = [];
+
+        function updateTable() {
+            dataTable.innerHTML = '';
+            data.forEach((entry, index) => {
+                const row = dataTable.insertRow();
+                row.insertCell(0).innerText = entry.type;
+                row.insertCell(1).innerText = entry.amount;
+                row.insertCell(2).innerText = entry.date;
+                
+                const actionsCell = row.insertCell(3); // Actions column
+                const editButton = document.createElement('button');
+                editButton.innerText = 'Edit';
+                editButton.onclick = () => editEntry(index);
+                actionsCell.appendChild(editButton);
+
+                const deleteButton = document.createElement('button');
+                deleteButton.innerText = 'Delete';
+                deleteButton.onclick = () => deleteEntry(index);
+                actionsCell.appendChild(deleteButton);
+            });
+        }
+
+        function updateChart() {
+            const labels = [...new Set(data.map(entry => entry.date))];
+            const amounts = labels.map(label => {
+                return data
+                    .filter(entry => entry.date === label)
+                    .reduce((sum, entry) => entry.type === 'Expense' ? sum + entry.amount : sum - entry.amount, 0);
+            });
+
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Daily Balance',
+                        data: amounts,
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+
+        function deleteEntry(index) {
+            data.splice(index, 1);
+            updateTable();
+            updateChart();
+        }
+
+        function editEntry(index) {
+            const entry = data[index];
+            form.type.value = entry.type;
+            form.amount.value = entry.amount;
+            form.date.value = entry.date;
+
+            deleteEntry(index); // Remove the old entry before updating
+        }
+
+        form.addEventListener('submit', (event) => {
+            event.preventDefault();
+
+            const type = form.type.value;
+            const amount = parseFloat(form.amount.value);
+            const date = form.date.value;
+
+            // Autogenerate balance based on previous data
+            const balance = data.reduce((sum, entry) => entry.date === date ? sum + (entry.type === 'Expense' ? -entry.amount : entry.amount) : sum, 0);
+
+            data.push({ type, balance, amount, date });
+            updateTable();
+            updateChart();
+
+            form.reset();
+        });
+
+        // For initial chart setup if there is pre-existing data
+        updateChart();
+    </script>
+</body>
+</html>

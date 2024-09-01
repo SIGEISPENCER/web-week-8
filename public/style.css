@@ -1,0 +1,155 @@
+/* Apply a background image to the whole body */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    height: 100vh; /* Full viewport height */
+    overflow: hidden; /* Hide overflow for smooth layout */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative; /* Ensure positioning for overlay */
+    background: url('background.jpg') no-repeat center center fixed;
+    background-size: cover;
+}
+
+/* Styles specific to the homepage */
+.homepage-container {
+    width: 100%;
+    max-width: 400px; /* Adjust width as needed */
+    background: rgba(255, 255, 255, 0.9); /* Slightly less transparent for better readability */
+    padding: 20px;
+    border-radius: 8px; /* Rounded corners for forms */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Add shadow for depth */
+    text-align: center; /* Center align the text */
+}
+
+/* Enhance font visibility for the homepage heading */
+.homepage-container h1 {
+    color: #081342; /* Dark blue color for headings */
+    margin-bottom: 15px; /* Adjust margin for better spacing */
+    font-size: 28px; /* Larger font size for prominence */
+}
+
+/* Enhance font visibility for the homepage paragraphs */
+.homepage-container p {
+    color: #333; /* Dark color for text */
+    margin-bottom: 15px; /* Adjust margin for better spacing */
+    font-size: 18px; /* Slightly larger font size for better readability */
+}
+
+/* Container for buttons with improved styling */
+.button-container {
+    display: flex;
+    flex-direction: column; /* Stack buttons vertically */
+    gap: 10px; /* Add space between buttons */
+}
+
+.button-container .btn {
+    background-color: #007bff; /* Blue background for the button */
+    color: white; /* White text color for the button */
+    border: none;
+    padding: 12px 20px; /* Increase padding for a larger click area */
+    border-radius: 4px; /* Rounded corners for the button */
+    text-decoration: none; /* Remove underline from links */
+    font-size: 18px; /* Increase font size for better readability */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s; /* Smooth transition for background color */
+}
+
+.button-container .btn:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Styles for form containers */
+.form-container {
+    width: 100%;
+    max-width: 400px; /* Adjust width as needed */
+    background: rgba(255, 255, 255, 0.9); /* Slightly less transparent for better readability */
+    padding: 20px;
+    border-radius: 8px; /* Rounded corners for forms */
+    box-shadow: 0 0 10px rgba(253, 251, 251, 0.2); /* Add shadow for depth */
+    text-align: center; /* Center align the text */
+    margin-top: 20px; /* Space from other elements */
+}
+
+/* Enhance font visibility for form headings */
+.form-container h1 {
+    color: #081342; /* Dark blue color for headings */
+    margin-bottom: 20px; /* Add some margin below the heading */
+    font-size: 24px; /* Adjust font size as needed */
+}
+
+/* Style the forms and center them */
+form {
+    margin-bottom: 20px;
+}
+
+/* Align form sections to the left for better readability */
+#login-form, #register-form {
+    text-align: left;
+}
+
+/* Style the form fields consistently */
+form label {
+    display: block;
+    margin-bottom: 8px; /* Increase margin for better spacing */
+    font-weight: bold;
+    color: #0a0a0a; /* Dark color for label text */
+    font-size: 16px; /* Increase font size for better readability */
+}
+
+form input[type="text"], 
+form input[type="password"], 
+form input[type="email"] {
+    width: 100%;
+    padding: 10px; /* Increase padding for better user interaction */
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px; /* Rounded corners for input fields */
+    box-sizing: border-box; /* Include padding and border in element's total width and height */
+    font-size: 16px; /* Increase font size for better readability */
+}
+
+/* Style the submit button */
+form button {
+    background-color: #007bff; /* Blue background for the button */
+    color: white; /* White text color for the button */
+    border: none;
+    padding: 12px 20px; /* Increase padding for a larger click area */
+    border-radius: 4px; /* Rounded corners for the button */
+    cursor: pointer; /* Pointer cursor on hover */
+    font-size: 16px; /* Increase font size for better readability */
+}
+
+form button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Style the table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px; /* Add margin to separate from other elements */
+}
+
+/* Style table cells */
+th, td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+    font-size: 14px; /* Adjust font size for readability */
+}
+
+/* Style table headers */
+th {
+    background-color: #dddada;
+}
+
+/* Style the select elements */
+select {
+    width: 100%;
+    padding: 10px; /* Increase padding for better user interaction */
+    margin-bottom: 20px;
+    font-size: 16px; /* Increase font size for better readability */
+}
